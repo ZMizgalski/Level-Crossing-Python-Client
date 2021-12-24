@@ -1,6 +1,9 @@
 import ConnectToSocket
-
+import threading
+import keyboard
 from flask import Flask, render_template, Response, request
+
+
 # import VideoCamera
 #
 # pi_camera = VideoCamera.VideoCamera(flip=False)
@@ -24,7 +27,6 @@ from flask import Flask, render_template, Response, request
 # def video_feed():
 #     return Response(gen(pi_camera),
 #                     mimetype='multipart/x-mixed-replace; boundary=frame')
-
 
 if __name__ == "__main__":
     HOST = "192.168.1.212"
