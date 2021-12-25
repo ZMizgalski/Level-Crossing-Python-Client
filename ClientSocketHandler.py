@@ -1,5 +1,4 @@
 import socket
-import jpysocket
 import keyboard
 from time import sleep
 import threading
@@ -17,11 +16,17 @@ class ClientSocketHandler(object):
         self.CLIENT_SOCKET = socket.socket()
         threading.Thread(target=self.initializeConnection(), args=())
 
+    @staticmethod
+    def encodeMessage(msg):
+        msg = (chr(92) + "x00" + chr(92) + "x" + format(len(msg), '02x') + msg).encode().decode(
+            'unicode-escape').encode()
+        return msg
+
     def initializeConnection(self):
         print("Press 'e' to close ->")
         while not keyboard.is_pressed("e"):
             try:
-                self.CLIENT_SOCKET.send(jpysocket.jpyencode(self.DATA_TO_TRANSFER))
+                self.CLIENT_SOCKET.send(self.encodeMessage(self.DATA_TO_TRANSFER))
             except socket.error:
                 connected = False
                 self.CLIENT_SOCKET = socket.socket()
