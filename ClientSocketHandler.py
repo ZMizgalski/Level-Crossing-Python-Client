@@ -1,5 +1,4 @@
 import socket
-import keyboard
 from time import sleep
 import threading
 
@@ -23,18 +22,21 @@ class ClientSocketHandler(object):
         return msg
 
     def initializeConnection(self):
-        print("Press 'e' to close ->")
-        while not keyboard.is_pressed("e"):
+        print("Press CTRL+C to close ->")
+        while True:
             try:
-                self.CLIENT_SOCKET.send(self.encodeMessage(self.DATA_TO_TRANSFER))
-            except socket.error:
-                connected = False
-                self.CLIENT_SOCKET = socket.socket()
-                while not connected:
-                    try:
-                        self.CLIENT_SOCKET.connect((self.HOST_IP, self.HOST_PORT))
-                        connected = True
-                        print("Connected to: " + self.HOST_IP + ":" + str(self.HOST_PORT))
-                    except socket.error:
-                        sleep(2)
-                        print("reconnecting.....")
+                try:
+                    self.CLIENT_SOCKET.send(self.encodeMessage(self.DATA_TO_TRANSFER))
+                except socket.error:
+                    connected = False
+                    self.CLIENT_SOCKET = socket.socket()
+                    while not connected:
+                        try:
+                            self.CLIENT_SOCKET.connect((self.HOST_IP, self.HOST_PORT))
+                            connected = True
+                            print("Connected to: " + self.HOST_IP + ":" + str(self.HOST_PORT))
+                        except socket.error:
+                            sleep(2)
+                            print("reconnecting.....")
+            except KeyboardInterrupt:
+                break
