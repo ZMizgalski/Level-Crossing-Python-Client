@@ -1,3 +1,5 @@
+import threading
+
 import clientReconnectHandler
 # from flask import Flask, render_template, Response
 # import VideoCamera
@@ -30,7 +32,10 @@ if __name__ == "__main__":
     HOST_PORT = 10001
     CLIENT_PORT = 8080
     CLIENT_IP = "192.168.1.40"
-    clientReconnectHandler.ClientReconnectHandler(HOST, HOST_PORT, CLIENT_IP, CLIENT_PORT).start()
+    client = clientReconnectHandler.ClientReconnectHandler(HOST, HOST_PORT, CLIENT_IP, CLIENT_PORT)
+    client.start()
+
+
     # socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     # socket.connect((HOST, HOST_PORT))
     # client = client.SocketClient(socket, HOST, HOST_PORT, True)

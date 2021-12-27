@@ -16,24 +16,36 @@ class ClientReconnectHandler(threading.Thread):
         self.host_port = host_port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connected = False
+        self.first_connected = False
 
     def run(self):
-        while not self.connected:
-            print("Reconnecting....")
+        global client
+        while True:
             try:
                 self.socket.send(''.encode("UTF-8"))
                 self.socket.connect((self.host_ip, self.host_port))
-                SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                             self.client_port).start()
+                self.first_connected = True
+                client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
+                             self.client_port)
+                client.start()
             except socket.error:
                 self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                try:
+                    if client.is_alive():
+                        ClientReconnectHandler(self.host_ip, self.host_port, self.client_ip, self.client_port).start()
+                        break
+                except NameError:
+                    pass
+
                 while not self.connected:
                     try:
                         self.socket.connect((self.host_ip, self.host_port))
                         self.connected = True
+                        self.first_connected = True
                         print("Connected")
-                        SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                                     self.client_port).start()
+                        client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
+                                     self.client_port)
+                        client.start()
                         break
                     except socket.error:
                         time.sleep(2)
@@ -63,6 +75,7 @@ class SocketClient(threading.Thread):
     def run(self):
         while self.connection_established:
             try:
+                crossingStatus(self.socket)
                 if not self.ip_transferred:
                     ip = "http://" + self.client_ip + ":" + str(self.client_port)
                     self.socket.send(ip.encode("UTF-8"))
@@ -79,8 +92,29 @@ class SocketClient(threading.Thread):
                 self.img_frame_counter += 1
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
+
             except socket.error:
                 self.camera.release()
                 cv2.destroyWindow(self.client_ip + ":" + str(self.client_port))
+                self.connection_established = False
+                break
+
+
+class crossingStatus(threading.Thread):
+    def __init__(self, sock):
+        threading.Thread.__init__(self)
+        self.socket = sock
+        self.connection_established = True
+
+    def run(self):
+        while self.connection_established:
+            try:
+                data = self.socket.recv(4096)
+                print(data)
+                strData = str(data).replace("b", "").replace("'", "")
+                if strData == "elo":
+                    print("open")
+
+            except socket.error:
                 self.connection_established = False
                 break
