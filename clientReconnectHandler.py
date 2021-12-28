@@ -1,9 +1,10 @@
-import threading
-import time
-import cv2
+import pickle
 import socket
 import struct
-import pickle
+import threading
+import time
+from time import sleep
+import cv2
 import imutils
 
 
@@ -26,7 +27,7 @@ class ClientReconnectHandler(threading.Thread):
                 self.socket.connect((self.host_ip, self.host_port))
                 self.first_connected = True
                 client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                             self.client_port)
+                                      self.client_port)
                 client.start()
             except socket.error:
                 self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -44,7 +45,7 @@ class ClientReconnectHandler(threading.Thread):
                         self.first_connected = True
                         print("Connected")
                         client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                                     self.client_port)
+                                              self.client_port)
                         client.start()
                         break
                     except socket.error:
@@ -73,9 +74,9 @@ class SocketClient(threading.Thread):
         self.ip_transferred = False
 
     def run(self):
+        crossingStatus(self.socket).start()
         while self.connection_established:
             try:
-                crossingStatus(self.socket)
                 if not self.ip_transferred:
                     ip = "http://" + self.client_ip + ":" + str(self.client_port)
                     self.socket.send(ip.encode("UTF-8"))
@@ -110,10 +111,11 @@ class crossingStatus(threading.Thread):
         while self.connection_established:
             try:
                 data = self.socket.recv(4096)
-                print(data)
                 strData = str(data).replace("b", "").replace("'", "")
-                if strData == "elo":
+                if strData == "open":
                     print("open")
+                elif strData == "close":
+                    print("close")
 
             except socket.error:
                 self.connection_established = False
