@@ -3,9 +3,9 @@ import socket
 import struct
 import threading
 import time
-from time import sleep
 import cv2
 import imutils
+from servoController import MotorControl
 
 
 class ClientReconnectHandler(threading.Thread):
@@ -114,8 +114,10 @@ class crossingStatus(threading.Thread):
                 strData = str(data).replace("b", "").replace("'", "")
                 if strData == "open":
                     print("open")
+                    MotorControl(30).open()
                 elif strData == "close":
                     print("close")
+                    MotorControl(30).close()
 
             except socket.error:
                 self.connection_established = False
