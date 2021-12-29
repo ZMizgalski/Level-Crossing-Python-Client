@@ -113,7 +113,7 @@ class crossingStatus(threading.Thread):
             try:
                 data = self.socket.recv(4096)
                 strData = str(data).replace("b", "").replace("'", "")
-                motor = MotorControl(30)
+                motor = MotorControl(90)
                 if strData == "open":
                     print("open")
                     motor.open()

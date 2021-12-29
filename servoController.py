@@ -23,27 +23,17 @@ class MotorControl(object):
         self.servo1 = servo.Servo(self.pca.channels[1])
         self.servo8 = servo.Servo(self.pca.channels[8])
         self.servo11 = servo.Servo(self.pca.channels[11])
-        self.c_servo5 = servo.ContinuousServo(self.pca.channels[5])
-        self.c_servo1 = servo.ContinuousServo(self.pca.channels[1])
-        self.c_servo8 = servo.ContinuousServo(self.pca.channels[8])
-        self.c_servo11 = servo.ContinuousServo(self.pca.channels[11])
 
     def open(self):
-        self.c_servo5.throttle = 1
-        time.sleep(0.03)
-        self.c_servo1.throttle = -1
-        time.sleep(0.03)
-        self.c_servo8.throttle = 1
-        time.sleep(0.03)
-        self.c_servo11.throttle = -1
+        self.servo5.angle = 90 + self.angle
+        self.servo1.angle = 90 - self.angle
+        self.servo8.angle = 90 + self.angle
+        self.servo11.angle = 90 - self.angle
         time.sleep(0.03)
 
     def close(self):
-        self.servo5.angle = 0
-        time.sleep(0.03)
-        self.servo1.angle = 0
-        time.sleep(0.03)
-        self.servo8.angle = 0
-        time.sleep(0.03)
-        self.servo11.angle = 0
+        self.servo5.angle = 90
+        self.servo1.angle = 90
+        self.servo8.angle = 90
+        self.servo11.angle = 90
         time.sleep(0.03)
