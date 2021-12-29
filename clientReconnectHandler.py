@@ -89,7 +89,8 @@ class SocketClient(threading.Thread):
                 size = len(data)
                 if self.img_frame_counter % 5 == 0:
                     self.socket.send(struct.pack(">L", size) + data)
-                    cv2.imshow(self.client_ip + ":" + str(self.client_port), frame)
+                    resized_frame = cv2.resize(frame, (240 + 550, 320 + 450), interpolation=cv2.INTER_AREA)
+                    cv2.imshow(self.client_ip + ":" + str(self.client_port), resized_frame)
                 self.img_frame_counter += 1
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
@@ -112,13 +113,13 @@ class crossingStatus(threading.Thread):
             try:
                 data = self.socket.recv(4096)
                 strData = str(data).replace("b", "").replace("'", "")
+                motor = MotorControl(30)
                 if strData == "open":
                     print("open")
-                    MotorControl(30).open()
+                    motor.open()
                 elif strData == "close":
                     print("close")
-                    MotorControl(30).close()
-
+                    motor.close()
             except socket.error:
                 self.connection_established = False
                 break
