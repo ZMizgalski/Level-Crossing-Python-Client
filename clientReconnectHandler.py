@@ -9,10 +9,9 @@ from servoController import MotorControl
 
 
 class ClientReconnectHandler(threading.Thread):
-    def __init__(self, host_ip, host_port, client_ip, client_port):
+    def __init__(self, host_ip, host_port, camera_name):
         threading.Thread.__init__(self)
-        self.client_ip = client_ip
-        self.client_port = client_port
+        self.camera_name = camera_name
         self.host_ip = host_ip
         self.host_port = host_port
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -26,14 +25,13 @@ class ClientReconnectHandler(threading.Thread):
                 self.socket.send(''.encode("UTF-8"))
                 self.socket.connect((self.host_ip, self.host_port))
                 self.first_connected = True
-                client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                                      self.client_port)
+                client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.camera_name)
                 client.start()
             except socket.error:
                 self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 try:
                     if client.is_alive():
-                        ClientReconnectHandler(self.host_ip, self.host_port, self.client_ip, self.client_port).start()
+                        ClientReconnectHandler(self.host_ip, self.host_port, self.camera_name).start()
                         break
                 except NameError:
                     pass
@@ -44,8 +42,7 @@ class ClientReconnectHandler(threading.Thread):
                         self.connected = True
                         self.first_connected = True
                         print("Connected")
-                        client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.client_ip,
-                                              self.client_port)
+                        client = SocketClient(self.socket, self.host_ip, self.host_port, True, self.camera_name)
                         client.start()
                         break
                     except socket.error:
@@ -59,13 +56,11 @@ class SocketClient(threading.Thread):
                  host_ip="localhost",
                  host_port=00000,
                  connection_established=True,
-                 client_ip="localhost",
-                 client_port=0000):
+                 camera_name="Default Name"):
         threading.Thread.__init__(self)
         self.host_ip = host_ip
         self.host_port = host_port
-        self.client_ip = client_ip
-        self.client_port = client_port
+        self.camera_name = camera_name
         self.connection_established = connection_established
         self.socket = sock
         self.camera = cv2.VideoCapture(0)
@@ -78,8 +73,8 @@ class SocketClient(threading.Thread):
         while self.connection_established:
             try:
                 if not self.ip_transferred:
-                    ip = "http://" + self.client_ip + ":" + str(self.client_port)
-                    self.socket.send(ip.encode("UTF-8"))
+                    print(socket.gethostname())
+                    self.socket.send(self.camera_name.encode("UTF-8"))
                     self.ip_transferred = True
                 ret, frame = self.camera.read()
                 frame = imutils.resize(frame, width=320)
@@ -90,14 +85,14 @@ class SocketClient(threading.Thread):
                 if self.img_frame_counter % 5 == 0:
                     self.socket.send(struct.pack(">L", size) + data)
                     resized_frame = cv2.resize(frame, (240 + 550, 320 + 450), interpolation=cv2.INTER_AREA)
-                    cv2.imshow(self.client_ip + ":" + str(self.client_port), resized_frame)
+                    cv2.imshow(self.camera_name, resized_frame)
                 self.img_frame_counter += 1
                 if cv2.waitKey(1) & 0xFF == ord('q'):
                     break
 
             except socket.error:
                 self.camera.release()
-                cv2.destroyWindow(self.client_ip + ":" + str(self.client_port))
+                cv2.destroyWindow(self.camera_name)
                 self.connection_established = False
                 break
 
