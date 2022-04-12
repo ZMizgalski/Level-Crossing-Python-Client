@@ -46,7 +46,7 @@ opencv-contrib-python==4.5.4.60
 opencv-python==4.5.1.48
 packaging==21.3
 pdfminer.six==20211012
-Pillow==8.2.0
+Pillow==9.0.1
 Pint==0.18
 pipreqs==0.4.11
 psutil==5.8.0
