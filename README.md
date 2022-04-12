@@ -5,6 +5,7 @@
 * [General Info](#general-information)
 * [Technologies Used](#technologies-used)
 * [Features](#features)
+* [Screenshots](#screenshots)
 * [Setup](#setup)
 * [Usage](#usage)
 * [Project Status](#project-status)
@@ -26,6 +27,8 @@
 List the ready features here:
 - Control of servos
 - Socket connection
+
+## Screenshots
 
 ## Setup
 - Python 3.6+
