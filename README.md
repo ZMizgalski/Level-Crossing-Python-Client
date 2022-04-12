@@ -1,5 +1,5 @@
-# Level-Crossing-Python-Server
-> The level crossing server made with Angular and Flask for competition: "OLIMPIADA INNOWACJI TECHNICZNYCH I WYNALAZCZOŚCI" [Link](https://www.pzswir.pl/olimpiada)
+# Level-Crossing-Python-Client
+> The level crossing clinet app made with Angular and Flask for competition: "OLIMPIADA INNOWACJI TECHNICZNYCH I WYNALAZCZOŚCI" [Link](https://www.pzswir.pl/olimpiada)
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -13,31 +13,24 @@
 * [License](#license)
 
 ## General Information
-- This project was made for school competition and also to improve railroads in whole country. It uses AI to detect objects and decide to open crossing barriers when someone is blocked. To work properly it needs to be connected to a network.
+- This project was made for school competition and also to improve railroads in whole country. It uses AI to detect objects and decide to open crossing barriers when someone is blocked. To work properly it needs to be connected to a network. Client app is controlling servos connected to the Raspberry Pi
 
 ## Technologies Used
 - OpenCv
-- Yolov3
-- Flask
 - Socket
-- Agular
 - Python
+- Raspberry Pi
+- Adafruit PCB
 
 ## Features
 List the ready features here:
-- Automatic object detection
-- Secured connection
+- Control of servos
 - Socket connection
-- Multidict for cameras data service
 
 ## Setup
 - Python 3.6+
 - configured pip
-- Flask==2.0.2
-- Flask_Cors==3.0.10
-- multidict==5.2.0
-- numpy==1.20.2
-- opencv_python==4.5.1.48
+- More requirements found in [requirements.txt](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/requirements.txt)
 
 ## Usage
 1. Create a folder named you like.
