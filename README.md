@@ -47,15 +47,11 @@ DOWNLOADING CODE + [SERVER](https://github.com/ZMizgalski/Level-Crossing-Python-
 1. Create a folder named you like.
 2. Inside your folder, open console and paste: `git clone https://github.com/ZMizgalski/Level-Crossing-Python-Client.git`
 3. Install OS on Raspberry Pi with easy Imager https://www.raspberrypi.com/software/
-4. Then you need to transfer this program to Raspberry Pi with 
-
-3. Raspberry Pi is required https://www.raspberrypi.org/ and also multiple modifications.
-6. Raspberry Pi camera is required also.
-7.
-8. Install python from the official website. [Download here](https://www.python.org/downloads/)
-9. Install pip then install all requirements from [requirements.txt](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/requirements.txt)
-
-7. Then you are ready to go just open it in any Editor. (I prefer PyCharm Community) [Download here](https://www.jetbrains.com/pycharm/)
+4. Enable SSH and pi-camera on Raspberry Pi
+5. Then you need to transfer this program to Raspberry Pi with ssh best option
+6. Install python from the official website. [Download here](https://www.python.org/downloads/)
+7. Install pip then install all requirements from [requirements.txt](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/requirements.txt)
+7. Then you are ready to go just open console and run `Main.py`
 
 ## Project Status
 Project is:  _complete_ .
