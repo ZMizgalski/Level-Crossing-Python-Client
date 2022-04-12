@@ -29,6 +29,12 @@ List the ready features here:
 - Socket connection
 
 ## Screenshots
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/logo.png)
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/1.png)
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/2.png)
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/3.png)
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/4.png)
+
 
 ## Setup
 - Python 3.6+
