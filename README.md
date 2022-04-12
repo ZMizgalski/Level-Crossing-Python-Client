@@ -32,7 +32,7 @@ List the ready features here:
 ![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/logo.png)
 ![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/1.png)
 ![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/2.png)
-![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/3.png)
+![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/3.jpg)
 ![IMG](https://github.com/ZMizgalski/Level-Crossing-Python-Client/blob/master/imgs/4.png)
 
 
