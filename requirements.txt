@@ -40,7 +40,7 @@ Lantz==0.3
 MarkupSafe==2.0.1
 multidict==5.2.0
 mutagen==1.45.1
-nltk==3.6.5
+nltk==3.6.6
 numpy==1.20.2
 opencv-contrib-python==4.5.4.60
 opencv-python==4.5.1.48
