@@ -43,7 +43,7 @@ IMPORTANT PARTS!
 6. SD Card
 7. 4 x 180 degree servo
 
-DOWNLOADING CODE + [SERVER](https://github.com/ZMizgalski/Level-Crossing-Python-Server) 
+ClIENT + [SERVER](https://github.com/ZMizgalski/Level-Crossing-Python-Server) 
 1. Create a folder named you like.
 2. Inside your folder, open console and paste: `git clone https://github.com/ZMizgalski/Level-Crossing-Python-Client.git`
 3. Install OS on Raspberry Pi with easy Imager https://www.raspberrypi.com/software/
